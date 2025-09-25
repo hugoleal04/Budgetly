@@ -6,7 +6,7 @@ public class Account
     public string name { get; set; }
     public decimal money { get; set; }
     
- }
+}
 
 public class Expenses
 {
