@@ -1,6 +1,12 @@
 namespace Budgetly.Models;
 
-public class Account { public decimal money { get; set; } }
+public class Account
+{
+    public int id { get; set; }
+    public string name { get; set; }
+    public decimal money { get; set; }
+    
+ }
 
 public class Expenses
 {
