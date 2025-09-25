@@ -18,11 +18,23 @@ namespace Budgetly.Controllers
 {
     public class FinancialController : Controller
     {
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
+
+        public IActionResult Success()
+        {
+            return View();
+        }
+
+        
 
         [HttpPost]
         public IActionResult Register(Account model)
@@ -52,7 +64,7 @@ namespace Budgetly.Controllers
             string jsonString = JsonSerializer.Serialize(accounts, new JsonSerializerOptions { WriteIndented = true });
             System.IO.File.WriteAllText(filePath, jsonString);
 
-            return View();
+            return RedirectToAction("Success");
         }
     }
     
