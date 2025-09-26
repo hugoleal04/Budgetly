@@ -6,7 +6,11 @@ public class Account
     public string name { get; set; }
     public decimal money { get; set; }
 }
-
+public class HubViewModel
+{
+    public Account Account { get; set; } = new Account();
+    public List<Expenses> Expenses { get; set; } = new List<Expenses>();
+}
 public class Expenses
 {
     public string Type { get; set; }

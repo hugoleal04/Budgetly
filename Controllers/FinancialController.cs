@@ -25,26 +25,44 @@ namespace Budgetly.Controllers
             }
             return View(accounts);
         }
-        [HttpGet]
+        [HttpGet] 
         public IActionResult Hub(int id)
         {
             string appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Budgetly");
-            string filePath = Path.Combine(appDataFolder, "accounts.json");
 
-            Account? account = null;
-
-            if (System.IO.File.Exists(filePath))
+            // Ler despesas
+            string filePathExpenses = Path.Combine(appDataFolder, "Expenses.json");
+            List<Expenses> expenses = new();
+            if (System.IO.File.Exists(filePathExpenses))
             {
-                var json = System.IO.File.ReadAllText(filePath);
-                var accounts = JsonSerializer.Deserialize<List<Account>>(json) ?? new();
+                string json = System.IO.File.ReadAllText(filePathExpenses);
+                expenses = JsonSerializer.Deserialize<List<Expenses>>(json) ?? new List<Expenses>();
+            }
+
+            // Filtrar apenas as despesas da conta atual
+            var accountExpenses = expenses.Where(e => e.id_user == id).OrderByDescending(e => e.Date).ToList();
+
+            // Ler conta
+            string filePathAccounts = Path.Combine(appDataFolder, "accounts.json");
+            Account? account = null;
+            if (System.IO.File.Exists(filePathAccounts))
+            {
+                var json = System.IO.File.ReadAllText(filePathAccounts);
+                var accounts = JsonSerializer.Deserialize<List<Account>>(json) ?? new List<Account>();
                 account = accounts.FirstOrDefault(a => a.id == id);
             }
-            if (account == null)
-            {
-                return NotFound();
-            }
 
-            return View(account);
+            if (account == null)
+                return NotFound();
+
+            // Montar ViewModel
+            var viewModel = new HubViewModel
+            {
+                Account = account,
+                Expenses = accountExpenses
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -57,7 +75,10 @@ namespace Budgetly.Controllers
         {
             return View();
         }
-
+        public IActionResult InsufficientMoney()
+        {
+            return View();
+        }
 
 
         [HttpPost]
@@ -107,6 +128,8 @@ namespace Budgetly.Controllers
                 Directory.CreateDirectory(appDataFolder);
             }
             string filePath = Path.Combine(appDataFolder, "Expenses.json");
+            string filePathAccounts = Path.Combine(appDataFolder, "accounts.json");
+
             // Read existing JSON or create new list
             List<Expenses> expenses;
             if (System.IO.File.Exists(filePath))
@@ -120,14 +143,40 @@ namespace Budgetly.Controllers
             }
 
             model.id_user = id;
-
             expenses.Add(model);
 
-            // Save JSON
+
+
+
+            List<Account> accounts;
+            if (System.IO.File.Exists(filePathAccounts))
+            {
+                string existingJson = System.IO.File.ReadAllText(filePathAccounts);
+                accounts = JsonSerializer.Deserialize<List<Account>>(existingJson) ?? new List<Account>();
+            }
+            else
+            {
+                accounts = new List<Account>();
+            }
+            var account = accounts.FirstOrDefault(a => a.id == id);
+            if (account != null)
+            {
+                account.money -= model.Price;
+            }
+
+            if (account.money < 0)
+            {
+                return RedirectToAction("InsufficientMoney");
+            }
+
+            // Save JSON Account
+            string jsonAccountsUpdated = JsonSerializer.Serialize(accounts, new JsonSerializerOptions { WriteIndented = true });
+            System.IO.File.WriteAllText(filePathAccounts, jsonAccountsUpdated);
+            // Save JSON Expense
             string jsonString = JsonSerializer.Serialize(expenses, new JsonSerializerOptions { WriteIndented = true });
             System.IO.File.WriteAllText(filePath, jsonString);
 
-            return RedirectToAction("Success");
+            return RedirectToAction("Hub", new { id = id });
         }
 
     }
