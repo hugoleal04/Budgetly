@@ -1,0 +1,48 @@
+@model Budgetly.Models.Expenses
+@{
+    ViewData["Title"] = "Expense Menu";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div>
+    <form asp-action="ExpenseMenu" method="post">
+        <br>
+        <label asp-for="Type">Type of expense</label>
+        <select asp-for="Type" class="form-select" aria-label="Default select example">
+            <option selected value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Housing">Housing</option>
+            <option value="Education">Education</option>
+            <option value="Health">Health</option>
+            <option value="Leisure">Leisure</option>
+            <option value="Online Shopping">Online Shopping</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Services">Services</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <div class="form-group">
+            <label asp-for="Price">Ammount</label>
+            <input type="number" step="0.01" class="form-control" id="Price" asp-for="Price" placeholder="Amount of money">
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description">Description</label>
+            <input type="text" class="form-control" id="Description" asp-for="Description" placeholder="Description of the Expense">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Date" class="form-label">Date</label>
+            <input type="date" id="Date" asp-for="Date" name="Date" class="form-control">
+        </div>
+
+        <div class="form-check">
+            <input asp-for="Recurring" class="form-check-input" type="checkbox" />
+            <label asp-for="Recurring" class="form-check-label">Recurring</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+</div>
+

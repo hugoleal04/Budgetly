@@ -1,5 +1,20 @@
+@model List<Account>
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <h2>Select an Account</h2>
+
+<form asp-controller="Financial" asp-action="Hub" method="get">
+    <div class="form-group">
+        <label for="accountSelect">Account</label>
+        <select class="form-control" id="accountSelect" name="id">
+            @foreach (var account in Model)
+            {
+                <option value="@account.id">@account.name</option>
+            }
+        </select>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Enter</button>
+</form>

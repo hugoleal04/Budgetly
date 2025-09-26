@@ -13,6 +13,6 @@ public class Expenses
     public decimal Price { get; set; }
     public String Description { get; set; }
     public DateTime Date { get; set; }
-    public bool Recurring{ get; set; }
+    public bool Recurring { get; set; }
+    public int id_user { get; set; }
 }
-public class Types {public string type { get; set; }}
