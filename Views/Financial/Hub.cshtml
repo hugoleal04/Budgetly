@@ -12,31 +12,55 @@
 <a asp-controller="Financial" asp-action="ExpenseMenu" asp-route-id="@Model.Account.id" class="btn btn-danger">Add expense</a>
 <a asp-controller="Financial" asp-action="Index" class="btn btn-secondary">Back</a>
 
+<p><strong>Per day you can spend:</strong> <span id="perDay">0</span> €</p>
+
 <div class="mb-3">
-    <label class="form-label">Per day you can spend until:</label>
-    <input type="date" id="endDate" class="form-control">
+  <label class="form-label">Select target date:</label>
+  <input type="date" id="targetDate" class="form-control">
 </div>
 
-<p>Per day spending: <span id="perDay">0</span> €</p>
-
 <script>
-    const balance = parseFloat("@Model.Account.money");
-    const endDateInput = document.getElementById('endDate');
-    const perDaySpan = document.getElementById('perDay');
+    // saldo inicial da conta
+    let balance = @Model.Account.money.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-    endDateInput.addEventListener('change', () => {
-        const endDate = new Date(endDateInput.value);
+    // pega despesas recorrentes até a data escolhida
+    const recurringExpenses = [
+        @foreach(var e in Model.Expenses.Where(x => x.Recurring && x.NextDueDate.HasValue))
+        {
+            if(e.NextDueDate.Value.Date <= DateTime.Today.AddYears(1)) // só para evitar muito código
+            {
+                @: { price: @e.Price.ToString(System.Globalization.CultureInfo.InvariantCulture), date: "@e.NextDueDate.Value.ToString("yyyy-MM-dd")"}, 
+            }
+        }
+    ];
+
+    const dateInput = document.getElementById("targetDate");
+    const perDaySpan = document.getElementById("perDay");
+
+    dateInput.addEventListener("change", () => {
         const today = new Date();
-        today.setHours(0,0,0,0); // reset hora para não interferir
-        const diffTime = endDate - today;
+        const target = new Date(dateInput.value);
+
+        if (target <= today) {
+            perDaySpan.textContent = "0";
+            return;
+        }
+
+        // calcula diferença de dias
+        const diffTime = target - today;
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-        if(diffDays > 0){
-            const perDay = balance / diffDays;
-            perDaySpan.innerText = perDay.toFixed(2);
-        } else {
-            perDaySpan.innerText = "0";
-        }
+        // subtrai despesas recorrentes que caem antes da data
+        let adjustedBalance = parseFloat(balance);
+        recurringExpenses.forEach(exp => {
+            const expDate = new Date(exp.date);
+            if (expDate <= target) {
+                adjustedBalance -= parseFloat(exp.price);
+            }
+        });
+
+        const perDay = (adjustedBalance / diffDays).toFixed(2);
+        perDaySpan.textContent = perDay;
     });
 </script>
 
