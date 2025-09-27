@@ -12,6 +12,34 @@
 <a asp-controller="Financial" asp-action="ExpenseMenu" asp-route-id="@Model.Account.id" class="btn btn-danger">Add expense</a>
 <a asp-controller="Financial" asp-action="Index" class="btn btn-secondary">Back</a>
 
+<div class="mb-3">
+    <label class="form-label">Per day you can spend until:</label>
+    <input type="date" id="endDate" class="form-control">
+</div>
+
+<p>Per day spending: <span id="perDay">0</span> €</p>
+
+<script>
+    const balance = parseFloat("@Model.Account.money");
+    const endDateInput = document.getElementById('endDate');
+    const perDaySpan = document.getElementById('perDay');
+
+    endDateInput.addEventListener('change', () => {
+        const endDate = new Date(endDateInput.value);
+        const today = new Date();
+        today.setHours(0,0,0,0); // reset hora para não interferir
+        const diffTime = endDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        if(diffDays > 0){
+            const perDay = balance / diffDays;
+            perDaySpan.innerText = perDay.toFixed(2);
+        } else {
+            perDaySpan.innerText = "0";
+        }
+    });
+</script>
+
 
 <!-- Modal -->
 <div class="modal fade" id="addMoneyModal" tabindex="-1" aria-labelledby="addMoneyLabel" aria-hidden="true">

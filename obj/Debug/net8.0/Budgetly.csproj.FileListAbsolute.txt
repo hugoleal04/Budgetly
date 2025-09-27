@@ -29,3 +29,4 @@ C:\Users\hugol\VSCProjetos\Budgetly\obj\Debug\net8.0\refint\Budgetly.dll
 C:\Users\hugol\VSCProjetos\Budgetly\obj\Debug\net8.0\Budgetly.pdb
 C:\Users\hugol\VSCProjetos\Budgetly\obj\Debug\net8.0\Budgetly.genruntimeconfig.cache
 C:\Users\hugol\VSCProjetos\Budgetly\obj\Debug\net8.0\ref\Budgetly.dll
+C:\Users\hugol\VSCProjetos\Budgetly\bin\Debug\net8.0\Secrets\firebase-key.json

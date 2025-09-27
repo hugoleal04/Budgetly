@@ -1,0 +1,65 @@
+[33mcommit 7427e85c308fcc15752e42d7ac24cf2e241e3fcd[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Hugo Leal <hugo.leal7755@gmail.com>
+Date:   Sat Sep 27 14:54:06 2025 +0100
+
+    Added some features
+    
+    One of them was
+
+[33mcommit 40a412217a8c76a3c167b1faf72d4ca20f3eceea[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Hugo Leal <hugo.leal7755@gmail.com>
+Date:   Sat Sep 27 10:40:18 2025 +0100
+
+    Allot of changes on the Hub menu
+    
+    Added a button to add money and automated the recurring expenses, added a next due date value to the expense table too.
+
+[33mcommit 8218fcdf8b1c74cd17343b002a81ca1b85ba9659[m
+Author: Hugo Leal <hugo.leal7755@gmail.com>
+Date:   Fri Sep 26 13:01:41 2025 +0100
+
+    System of subracting the money from an account when making an expense
+    
+    Also, now we have a table on the hub
+
+[33mcommit 43b03549d8f232239900747923dadfb52edbbd08[m
+Author: Hugo Leal <hugo.leal7755@gmail.com>
+Date:   Fri Sep 26 12:10:10 2025 +0100
+
+    The adding of expenses is completed
+
+[33mcommit 0fce4eb48687155ecfe85cb24e07d883ca0cccda[m
+Author: Hugo Leal <hugo.leal7755@gmail.com>
+Date:   Thu Sep 25 21:31:54 2025 +0100
+
+    criação do index, registro completo, mensagem de sucesso completos
+
+[33mcommit d7e4ebe4f6cfbcc6ebce81d42e7b0fe78d0145f4[m
+Author: Hugo Leal <hugo.leal7755@gmail.com>
+Date:   Thu Sep 25 19:19:28 2025 +0100
+
+    Now it stores the infromation about the accounts
+
+[33mcommit 112d814acd769f94e2a540082df57e0c2464fd73[m
+Author: Hugo Leal <hugo.leal7755@gmail.com>
+Date:   Thu Sep 25 18:57:59 2025 +0100
+
+    Starting to build the views
+
+[33mcommit 5d27522e099b84537f3a6886f5eeec9e22f09897[m
+Author: Hugo Leal <hugo.leal7755@gmail.com>
+Date:   Thu Sep 25 18:38:20 2025 +0100
+
+    Intruducing bootstrap
+
+[33mcommit 040d2c95af24b27cd861640ca397efb6b28a8717[m
+Author: Hugo Leal <hugo.leal7755@gmail.com>
+Date:   Thu Sep 25 18:31:00 2025 +0100
+
+    Create FinancialModels.cs
+
+[33mcommit f7f9ee275e6e8a35a3bc410986494a71781550d3[m
+Author: Hugo Leal <hugo.leal7755@gmail.com>
+Date:   Thu Sep 25 18:29:42 2025 +0100
+
+    Initial commit
