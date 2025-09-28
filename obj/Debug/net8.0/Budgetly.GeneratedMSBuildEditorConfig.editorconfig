@@ -9,63 +9,63 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Budgetly
 build_property.RootNamespace = Budgetly
-build_property.ProjectDir = C:\Users\hugol\VSCProjetos\Budgetly\
+build_property.ProjectDir = C:\Users\hugol\VSCProjetos\budgetly\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\hugol\VSCProjetos\Budgetly
+build_property.MSBuildProjectDirectory = C:\Users\hugol\VSCProjetos\budgetly
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/hugol/VSCProjetos/Budgetly/Views/Financial/ExpenseMenu.cshtml]
+[C:/Users/hugol/VSCProjetos/budgetly/Views/Financial/ExpenseMenu.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmluYW5jaWFsXEV4cGVuc2VNZW51LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hugol/VSCProjetos/Budgetly/Views/Financial/Hub.cshtml]
+[C:/Users/hugol/VSCProjetos/budgetly/Views/Financial/Hub.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmluYW5jaWFsXEh1Yi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hugol/VSCProjetos/Budgetly/Views/Financial/Index.cshtml]
+[C:/Users/hugol/VSCProjetos/budgetly/Views/Financial/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmluYW5jaWFsXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hugol/VSCProjetos/Budgetly/Views/Financial/InsufficientMoney.cshtml]
+[C:/Users/hugol/VSCProjetos/budgetly/Views/Financial/InsufficientMoney.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmluYW5jaWFsXEluc3VmZmljaWVudE1vbmV5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hugol/VSCProjetos/Budgetly/Views/Financial/Register.cshtml]
+[C:/Users/hugol/VSCProjetos/budgetly/Views/Financial/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmluYW5jaWFsXFJlZ2lzdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hugol/VSCProjetos/Budgetly/Views/Financial/Success.cshtml]
+[C:/Users/hugol/VSCProjetos/budgetly/Views/Financial/Success.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmluYW5jaWFsXFN1Y2Nlc3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hugol/VSCProjetos/Budgetly/Views/Home/Index.cshtml]
+[C:/Users/hugol/VSCProjetos/budgetly/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hugol/VSCProjetos/Budgetly/Views/Home/Privacy.cshtml]
+[C:/Users/hugol/VSCProjetos/budgetly/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hugol/VSCProjetos/Budgetly/Views/Shared/Error.cshtml]
+[C:/Users/hugol/VSCProjetos/budgetly/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hugol/VSCProjetos/Budgetly/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/hugol/VSCProjetos/budgetly/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hugol/VSCProjetos/Budgetly/Views/_ViewImports.cshtml]
+[C:/Users/hugol/VSCProjetos/budgetly/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hugol/VSCProjetos/Budgetly/Views/_ViewStart.cshtml]
+[C:/Users/hugol/VSCProjetos/budgetly/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hugol/VSCProjetos/Budgetly/Views/Shared/_Layout.cshtml]
+[C:/Users/hugol/VSCProjetos/budgetly/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-6rt48ah26a
