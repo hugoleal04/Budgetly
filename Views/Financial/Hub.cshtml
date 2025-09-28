@@ -119,37 +119,50 @@
 <button id="generatePDF" class="btn btn-primary">Generate PDF</button>
 
 <script>
+function getDaysInMonth(year, month) {
+  return new Date(year, month + 1, 0).getDate();
+}
+
 document.getElementById('generatePDF').addEventListener('click', () => {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
 
-    const now = new Date();
-    const currentMonth = now.getMonth();
-    const currentYear = now.getFullYear();
+  const expensess = getDaysInMonth(currentYear, currentMonth);
+  let totalPrice = 0;
 
-    const rows = [];
-    document.querySelectorAll("#expensesTable tbody tr").forEach(tr => {
-        const cells = tr.querySelectorAll("td");
-        const date = new Date(cells[3].textContent);
-        if (date.getMonth() === currentMonth && date.getFullYear() === currentYear) {
-            rows.push([
-                cells[0].textContent,
-                cells[1].textContent,
-                cells[2].textContent,
-                cells[3].textContent
-            ]);
-        }
-    });
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
 
-    doc.text(`Expenses - ${now.toLocaleString('default', { month: 'long' })} ${currentYear}`, 14, 15);
+  const rows = [];
+  document.querySelectorAll("#expensesTable tbody tr").forEach(tr => {
+    const cells = tr.querySelectorAll("td");
+    const date = new Date(cells[3].textContent);
+    if (date.getMonth() === currentMonth && date.getFullYear() === currentYear) {
+      rows.push([
+        cells[0].textContent,
+        cells[1].textContent,
+        cells[2].textContent,
+        cells[3].textContent
+      ]);
+      const price = parseFloat(cells[2].textContent.replace(',', '.'));
+      totalPrice += price;
+    }
+  });
 
-    doc.autoTable({
-        head: [['Type', 'Description', 'Price', 'Date']],
-        body: rows,
-        startY: 20
-    });
+  const avg = expensess > 0 ? (totalPrice / expensess) : 0;
 
-    doc.save(`Expenses_${currentMonth + 1}_${currentYear}.pdf`);
+  doc.text(`Expenses - ${now.toLocaleString('default', { month: 'long' })} ${currentYear}`, 14, 15);
+  doc.text(`Average: ${avg.toFixed(2)}`, 14, 22);
+  doc.text(`Total money spend: ${totalPrice.toFixed(2)}`, 14, 28);
+
+  doc.autoTable({
+    head: [['Type', 'Description', 'Price', 'Date']],
+    body: rows,
+    startY: 35
+  });
+
+  doc.save(`Expenses_${currentMonth + 1}_${currentYear}.pdf`);
 });
 </script>
 
