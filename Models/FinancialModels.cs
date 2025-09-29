@@ -1,4 +1,7 @@
 namespace Budgetly.Models;
+using System;
+
+using System.ComponentModel.DataAnnotations;
 
 public class Account
 {
@@ -13,21 +16,25 @@ public class HubViewModel
 }
 public class Expenses
 {
+    [Required(ErrorMessage = "Type is required")]
     public string Type { get; set; }
+
+    [Required(ErrorMessage = "Price is required")]
+    [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0")]
     public decimal Price { get; set; }
-    public String? Description { get; set; }
+
+    public string? Description { get; set; } // opcional
+
+    [Required(ErrorMessage = "Date is required")]
     public DateTime Date { get; set; }
+
+    [Required(ErrorMessage = "Recurring field is required")]
     public bool Recurring { get; set; }
+
+    [Required(ErrorMessage = "User ID is required")]
     public int id_user { get; set; }
-    public DateTime? NextDueDate { get; set; }
+
+    public DateTime? NextDueDate { get; set; } // opcional
 }
 
-public class Goal
-{
-    public int Id { get; set; }
-    public string Name { get; set; } = "";
-    public decimal TargetAmount { get; set; }
-    public decimal CurrentAmount { get; set; }
-    public DateTime? Deadline { get; set; }
-    public int AccountId { get; set; }
-}
+

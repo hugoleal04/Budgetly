@@ -4,6 +4,8 @@ using System.Text.Json;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
+using System.Globalization;
 
 
 namespace Budgetly.Controllers
@@ -118,8 +120,10 @@ namespace Budgetly.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddMoney(int id, decimal amount)
+        public IActionResult AddMoney(int id, string amount)
         {
+            decimal valor = decimal.Parse(amount.Replace(',', '.'), CultureInfo.InvariantCulture);
+
             string appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Budgetly");
             string filePath = Path.Combine(appDataFolder, "accounts.json");
 
@@ -133,7 +137,11 @@ namespace Budgetly.Controllers
             var account = accounts.FirstOrDefault(a => a.id == id);
             if (account != null)
             {
-                account.money += amount;
+                //Console.WriteLine($"{account.money}+{valor}");
+
+                account.money += valor;
+
+                //Console.WriteLine($"Novo saldo: {account.money}");
 
                 var jsonString = JsonSerializer.Serialize(accounts, new JsonSerializerOptions { WriteIndented = true });
                 System.IO.File.WriteAllText(filePath, jsonString);
