@@ -23,6 +23,10 @@ namespace Budgetly.Controllers
                 string json = System.IO.File.ReadAllText(filePath);
                 accounts = JsonSerializer.Deserialize<List<Account>>(json) ?? new List<Account>();
             }
+            else
+            {
+                return RedirectToAction("Register");
+            }
             return View(accounts);
         }
         [HttpGet]
