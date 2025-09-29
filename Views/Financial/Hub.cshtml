@@ -116,6 +116,46 @@
 </div>
 <br />
 
+@{
+    var grouped = Model.Expenses
+        .GroupBy(e => e.Type)
+        .Select(g => new {
+            Type = g.Key,
+            Total = g.Sum(x => x.Price)
+        })
+        .ToList();
+
+    var total = grouped.Sum(x => x.Total);
+}
+
+<div class="progress" style="height: 30px;">
+    @{
+        string[] colors = { "bg-primary", "bg-success", "bg-info", "bg-warning", "bg-danger" };
+        int i = 0;
+    }
+    @foreach (var item in grouped)
+    {
+        var percent = total > 0 ? (item.Total / total) * 100 : 0;
+        var color = colors[i % colors.Length];
+        i++;
+
+        <div class="progress-bar @color" 
+            role="progressbar" 
+            style=@($"width:{percent.ToString(System.Globalization.CultureInfo.InvariantCulture)}%")
+            aria-valuenow="@percent" 
+            aria-valuemin="0" 
+            aria-valuemax="100">
+            @item.Type (@percent.ToString("0.##")%)
+        </div>
+    }
+</div>
+
+
+
+
+
+
+<br />
 <button id="generatePDF" class="btn btn-primary">Generate PDF</button>
 
 <script>
