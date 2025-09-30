@@ -37,7 +37,6 @@ namespace Budgetly.Controllers
             ProcessRecurringExpenses(id);
             string appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Budgetly");
 
-            // Ler despesas
             string filePathExpenses = Path.Combine(appDataFolder, "Expenses.json");
             List<Expenses> expenses = new();
             if (System.IO.File.Exists(filePathExpenses))
@@ -46,10 +45,8 @@ namespace Budgetly.Controllers
                 expenses = JsonSerializer.Deserialize<List<Expenses>>(json) ?? new List<Expenses>();
             }
 
-            // Filtrar apenas as despesas da conta atual
             var accountExpenses = expenses.Where(e => e.id_user == id).OrderByDescending(e => e.Date).ToList();
 
-            // Ler conta
             string filePathAccounts = Path.Combine(appDataFolder, "accounts.json");
             Account? account = null;
             if (System.IO.File.Exists(filePathAccounts))
@@ -62,7 +59,6 @@ namespace Budgetly.Controllers
             if (account == null)
                 return NotFound();
 
-            // Montar ViewModel
             var viewModel = new HubViewModel
             {
                 Account = account,
@@ -97,7 +93,7 @@ namespace Budgetly.Controllers
                 Directory.CreateDirectory(appDataFolder);
             }
             string filePath = Path.Combine(appDataFolder, "accounts.json");
-            // Read existing JSON or create new list
+
             List<Account> accounts;
             if (System.IO.File.Exists(filePath))
             {
@@ -112,7 +108,6 @@ namespace Budgetly.Controllers
             model.id = accounts.Count > 0 ? accounts.Max(a => a.id) + 1 : 1;
             accounts.Add(model);
 
-            // Save JSON
             string jsonString = JsonSerializer.Serialize(accounts, new JsonSerializerOptions { WriteIndented = true });
             System.IO.File.WriteAllText(filePath, jsonString);
 

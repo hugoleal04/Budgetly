@@ -33,8 +33,35 @@
 
         <div class="mb-3">
             <label asp-for="Date" class="form-label">Date</label>
-            <input required type="date" id="Date" asp-for="Date" name="Date" class="form-control">
+            <div class="input-group">
+                <div class="input-group-text">
+                    <input type="checkbox" class="form-check-input mt-0" id="todayCheck" checked>
+                </div>
+                <input required type="date" id="Date" asp-for="Date" name="Date" class="form-control">
+            </div>
+            <small class="form-text text-muted">Uncheck to choose another date</small>
         </div>
+
+        <script>
+            window.addEventListener("DOMContentLoaded", function () {
+                const dateInput = document.getElementById("Date");
+                const todayCheck = document.getElementById("todayCheck");
+
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.value = today;
+                dateInput.readOnly = true;
+
+                todayCheck.addEventListener("change", function () {
+                    if (this.checked) {
+                        dateInput.value = today;
+                        dateInput.readOnly = true;
+                    } else {
+                        dateInput.readOnly = false;
+                    }
+                });
+            });
+        </script>
+
 
         <div class="form-check">
             <input asp-for="Recurring" class="form-check-input" type="checkbox" />
