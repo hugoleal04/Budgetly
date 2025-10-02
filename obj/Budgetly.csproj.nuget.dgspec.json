@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hugol\\VSCProjetos\\budgetly\\Budgetly.csproj": {}
+    "C:\\Users\\hugol\\VSCProjetos\\Budgetly\\Budgetly.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hugol\\VSCProjetos\\budgetly\\Budgetly.csproj": {
+    "C:\\Users\\hugol\\VSCProjetos\\Budgetly\\Budgetly.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hugol\\VSCProjetos\\budgetly\\Budgetly.csproj",
+        "projectUniqueName": "C:\\Users\\hugol\\VSCProjetos\\Budgetly\\Budgetly.csproj",
         "projectName": "Budgetly",
-        "projectPath": "C:\\Users\\hugol\\VSCProjetos\\budgetly\\Budgetly.csproj",
+        "projectPath": "C:\\Users\\hugol\\VSCProjetos\\Budgetly\\Budgetly.csproj",
         "packagesPath": "C:\\Users\\hugol\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hugol\\VSCProjetos\\budgetly\\obj\\",
+        "outputPath": "C:\\Users\\hugol\\VSCProjetos\\Budgetly\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hugol\\AppData\\Roaming\\NuGet\\NuGet.Config"

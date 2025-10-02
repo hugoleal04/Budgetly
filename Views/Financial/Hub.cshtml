@@ -156,19 +156,48 @@
 
 
 <br />
-<button id="generatePDF" class="btn btn-primary">Generate PDF</button>
+<div class="d-flex align-items-center gap-2">
+  <select id="monthSelect" class="form-select w-auto">
+    <option value="0">January</option>
+    <option value="1">February</option>
+    <option value="2">March</option>
+    <option value="3">April</option>
+    <option value="4">May</option>
+    <option value="5">June</option>
+    <option value="6">July</option>
+    <option value="7">August</option>
+    <option value="8">September</option>
+    <option value="9">October</option>
+    <option value="10">November</option>
+    <option value="11">December</option>
+  </select>
+
+
+  <select id="yearSelect" class="form-select w-auto"></select>
+
+  <button id="generatePDF" class="btn btn-primary">Gerar PDF</button>
+</div>
 
 <script>
+  const yearSelect = document.getElementById('yearSelect');
+  const currentYear = new Date().getFullYear();
+  for (let y = currentYear - 5; y <= currentYear + 5; y++) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y;
+    if (y === currentYear) opt.selected = true;
+    yearSelect.appendChild(opt);
+  }
+
   function getDaysInMonth(year, month) {
     return new Date(year, month + 1, 0).getDate();
   }
 
   document.getElementById('generatePDF').addEventListener('click', () => {
-    const now = new Date();
-    const currentMonth = now.getMonth();
-    const currentYear = now.getFullYear();
+    const selectedMonth = parseInt(document.getElementById('monthSelect').value);
+    const selectedYear = parseInt(document.getElementById('yearSelect').value);
 
-    const days = getDaysInMonth(currentYear, currentMonth);
+    const days = getDaysInMonth(selectedYear, selectedMonth);
     let totalPrice = 0;
 
     const { jsPDF } = window.jspdf;
@@ -178,7 +207,8 @@
     document.querySelectorAll("#expensesTable tbody tr").forEach(tr => {
       const cells = tr.querySelectorAll("td");
       const date = new Date(cells[3].textContent);
-      if (date.getMonth() === currentMonth && date.getFullYear() === currentYear) {
+
+      if (date.getMonth() === selectedMonth && date.getFullYear() === selectedYear) {
         rows.push([
           cells[0].textContent,
           cells[1].textContent,
@@ -192,7 +222,9 @@
 
     const avg = days > 0 ? (totalPrice / days) : 0;
 
-    doc.text(`Expenses - ${now.toLocaleString('default', { month: 'long' })} ${currentYear}`, 14, 15);
+    const monthName = new Date(selectedYear, selectedMonth).toLocaleString('default', { month: 'long' });
+
+    doc.text(`Expenses - ${monthName} ${selectedYear}`, 14, 15);
     doc.text(`Average: ${avg.toFixed(2)}`, 14, 22);
     doc.text(`Total money spend: ${totalPrice.toFixed(2)}`, 14, 28);
 
@@ -202,7 +234,8 @@
       startY: 35
     });
 
-    doc.save(`Expenses_${currentMonth + 1}_${currentYear}.pdf`);
+    doc.save(`Expenses_${selectedMonth + 1}_${selectedYear}.pdf`);
   });
 </script>
+
 
