@@ -218,45 +218,60 @@ namespace Budgetly.Controllers
 
         private void ProcessRecurringExpenses(int accountId)
         {
-            string appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Budgetly");
-            string filePath = Path.Combine(appDataFolder, "Expenses.json");
+        string appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Budgetly");
+        string filePathExpenses = Path.Combine(appDataFolder, "Expenses.json");
+        string filePathAccounts = Path.Combine(appDataFolder, "accounts.json");
 
-            List<Expenses> expenses = new();
+        List<Expenses> expenses = new();
+        if (System.IO.File.Exists(filePathExpenses))
+        {
+            var json = System.IO.File.ReadAllText(filePathExpenses);
+            expenses = JsonSerializer.Deserialize<List<Expenses>>(json) ?? new();
+        }
 
-            if (System.IO.File.Exists(filePath))
+        List<Account> accounts = new();
+        if (System.IO.File.Exists(filePathAccounts))
+        {
+            var json = System.IO.File.ReadAllText(filePathAccounts);
+            accounts = JsonSerializer.Deserialize<List<Account>>(json) ?? new();
+        }
+
+        var account = accounts.FirstOrDefault(a => a.id == accountId);
+        if (account == null) return;
+
+        bool updated = false;
+
+        foreach (var expense in expenses.Where(e => e.Recurring && e.id_user == accountId).ToList())
+        {
+            while (expense.NextDueDate.HasValue && expense.NextDueDate.Value <= DateTime.Today)
             {
-                var json = System.IO.File.ReadAllText(filePath);
-                expenses = JsonSerializer.Deserialize<List<Expenses>>(json) ?? new();
-            }
-            bool updated = false;
-            foreach (var expense in expenses.Where(e => e.Recurring && e.id_user == accountId).ToList())
-            {
-                while (expense.NextDueDate.HasValue && expense.NextDueDate.Value <= DateTime.Today)
+                account.money -= expense.Price;
+
+                var newExpense = new Expenses
                 {
-                    var newExpense = new Expenses
-                    {
-                        Type = expense.Type,
-                        Description = expense.Description,
-                        Price = expense.Price,
-                        Date = expense.NextDueDate.Value,
-                        Recurring = false,
-                        id_user = expense.id_user
-                    };
+                    Type = expense.Type,
+                    Description = expense.Description,
+                    Price = expense.Price,
+                    Date = expense.NextDueDate.Value,
+                    Recurring = false,
+                    id_user = expense.id_user
+                };
+                expenses.Add(newExpense);
 
-                    expenses.Add(newExpense);
+                expense.NextDueDate = expense.NextDueDate.Value.AddMonths(1);
 
-                    expense.NextDueDate = expense.NextDueDate.Value.AddMonths(1);
-
-                    updated = true;
-                }
+                updated = true;
             }
+        }
 
-            if (updated)
-            {
-                var jsonString = JsonSerializer.Serialize(expenses, new JsonSerializerOptions { WriteIndented = true });
-                System.IO.File.WriteAllText(filePath, jsonString);
-            }
-        }   
+        if (updated)
+        {
+            var jsonExpenses = JsonSerializer.Serialize(expenses, new JsonSerializerOptions { WriteIndented = true });
+            System.IO.File.WriteAllText(filePathExpenses, jsonExpenses);
 
+            var jsonAccounts = JsonSerializer.Serialize(accounts, new JsonSerializerOptions { WriteIndented = true });
+            System.IO.File.WriteAllText(filePathAccounts, jsonAccounts);
+        }
+    }
     }
 }
