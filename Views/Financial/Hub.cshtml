@@ -99,6 +99,7 @@
                 <th>Description</th>
                 <th>Price</th>
                 <th>Date</th>
+                <th>Delete</th>
             </tr>
     </thead>
     <tbody>
@@ -109,6 +110,19 @@
                 <td>@expense.Description</td>
                 <td>@expense.Price</td>
                 <td>@expense.Date.ToString("yyyy-MM-dd")</td>
+                <td>
+                    <center>
+                    <form asp-controller="Financial" asp-action="DeleteExpense" method="post" style="display:inline;">
+                        <input type="hidden" name="Description" value="@expense.Description" />
+                        <input type="hidden" name="accountId" value="@Model.Account.id" />
+                        <input type="hidden" name="Price" value="@expense.Price" />
+                        <button type="submit" class="btn btn-sm btn-danger"
+                                onclick="return confirm('Tens a certeza que queres apagar esta despesa?');">
+                            &times;
+                        </button>
+                    </form>
+                    </center>
+                </td>
             </tr>
         }
     </tbody>

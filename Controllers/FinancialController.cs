@@ -74,6 +74,41 @@ namespace Budgetly.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult DeleteExpense(int accountId, string Description, int Price)
+        {
+            //Console.WriteLine($"Teste");
+
+            string appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Budgetly");
+            string filePathExpenses = Path.Combine(appDataFolder, "Expenses.json");
+            string filePathAccounts = Path.Combine(appDataFolder, "accounts.json");
+
+
+            var json = System.IO.File.ReadAllText(filePathExpenses);
+            var expenses = JsonSerializer.Deserialize<List<Expenses>>(json) ?? new List<Expenses>();
+
+            json = System.IO.File.ReadAllText(filePathAccounts);
+            var accounts = JsonSerializer.Deserialize<List<Account>>(json) ?? new List<Account>();
+
+
+            var expenseToRemove = expenses.FirstOrDefault(e => e.id_user == accountId && e.Description == Description);
+            var account = accounts.FirstOrDefault(a => a.id == accountId);
+
+            if (expenseToRemove != null)
+            {
+                expenses.Remove(expenseToRemove);
+                var jsonExpense = JsonSerializer.Serialize(expenses, new JsonSerializerOptions { WriteIndented = true });
+                System.IO.File.WriteAllText(filePathExpenses, jsonExpense);
+
+                account.money += expenseToRemove.Price;
+                
+                var jsonAccount = JsonSerializer.Serialize(accounts, new JsonSerializerOptions { WriteIndented = true });
+                System.IO.File.WriteAllText(filePathAccounts, jsonAccount);
+            }
+
+            return RedirectToAction("Hub", new { id = accountId });
+        }
+
         public IActionResult Success()
         {
             return View();
